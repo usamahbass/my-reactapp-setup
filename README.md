@@ -1,70 +1,160 @@
-# Getting Started with Create React App
+# MY REACT APP SETUP
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ahlan 👋 ! <br/>
+i want share my react app setup for development, no include UI components.
 
-## Available Scripts
+### My dependencies
 
-In the project directory, you can run:
+- @testing-library/jest-dom
+  - [https://github.com/testing-library/jest-dom](https://github.com/testing-library/jest-dom)
+- @testing-library/react
+  - [https://github.com/testing-library/react-testing-library](https://github.com/testing-library/react-testing-library)
+- @testing-library/user-event
+  - [https://github.com/testing-library/user-event](https://github.com/testing-library/user-event)
+- axios
+  - [https://github.com/axios/axios](https://github.com/axios/axios)
+- jwtdecode
+  - [https://github.com/auth0/jwt-decode](https://github.com/auth0/jwt-decode)
+- lodash
+  - [https://github.com/lodash/lodash](https://github.com/lodash/lodash)
+- prop-types
+  - [https://github.com/facebook/prop-types](https://github.com/facebook/prop-types)
+- react-cookie
+  - [https://github.com/reactivestack/cookies/tree/master/packages/react-cookie](https://github.com/reactivestack/cookies/tree/master/packages/react-cookie)
+- react-hook-form
+  - [https://github.com/react-hook-form/react-hook-form/](https://github.com/react-hook-form/react-hook-form/)
+- react-redux
+  - [https://github.com/reduxjs/react-redux](https://github.com/reduxjs/react-redux)
+- react-router-dom
+  - [https://github.com/ReactTraining/react-router](https://github.com/ReactTraining/react-router)
+- redux
+  - [https://github.com/reduxjs/redux](https://github.com/reduxjs/redux)
+- redux-saga
+  - [https://github.com/redux-saga/redux-saga](https://github.com/redux-saga/redux-saga)
 
-### `yarn start`
+### My devDependencies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- eslint
+- eslint-config-airbnb
+- eslint-config-prettier
+- eslint-plugin-import
+- eslint-plugin-jsx-a11y
+- eslint-plugin-prettier
+- eslint-plugin-react
+- eslint-plugin-react-hooks
+- http-proxy-middleware
+- prettier
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Folder structure
 
-### `yarn test`
+```bash
+src
+|
+├── assets
+│   ├── file11.png
+│   └── file12.png
+├── components
+│   ├── your-component.js
+│   └── index.js
+├── constants
+│   ├── your-constant.js
+│   └── index.js
+├── hooks
+│   ├── your-hooks.js
+│   └── index.js
+├── layout
+│   ├── your-layout.js
+│   └── index.js
+├── pages
+│   ├── your-page.js
+│   └── index.js
+├── redux
+│   auth
+│   |  ├── action.js
+│   |  └── reducer.js
+|   |  ├── saga.js
+|   |  └── type.js
+│   ├── actions.js
+|   ├── index.js
+|   ├── reducers.js
+|   └── sagas.js
+|
+├── routes
+│   ├── private.js
+│   └── index.js
+├── styles
+│   base
+│   |  ├── _app.css
+│   |  └── _home.css
+│   abstract
+|   |
+|   components
+|   |
+|   utilities
+|   |
+|   index.css
+|
+├── theme
+|
+├── utils
+│   ├── auth.js
+│   └── request.js
+|   ├── index.js
+|
+└── App.js
+└── App.test.js
+└── index.js
+└── logo.svg
+└── reportWebVitals.js
+└── setupProxy.js
+└── setupTests.js
+|
+.env
+|
+.eslintrc.json
+|
+.gitignore
+|
+.prettierrc
+|
+package.json
+|
+README.md
+|
+yarn.lock
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Setup Development
 
-### `yarn build`
+- first, clone this repository
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+$ git clone https://github.com/usamahbass/my-reactapp-setup.git your-app
+$ cd your-app
+$ yarn install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- open **your-app** in your IDE and add .env file with contents like this and put in your api.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+REACT_APP_API_URL=your api here
+```
 
-### `yarn eject`
+- go to file setupProxy.js, and by default like this
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```js
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+module.exports = function (app) {
+  app.use(
+    '/v1', // your version or front yout path api , empty if not available
+    createProxyMiddleware({
+      target: process.env.REACT_APP_API_URL, // your env name
+      changeOrigin: true,
+    }),
+  );
+};
+```
+You can rename env with the name env and version with your version.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Barakallahufiikum.**
